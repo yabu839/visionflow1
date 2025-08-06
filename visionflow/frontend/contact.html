@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | VisionFlow AI</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #18122B 0%, #22223B 100%);
+      color: #f5f3e7;
+      padding: 32px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      border-radius: 24px;
+      min-height: 100vh;
+    }
+    h1, h2 {
+      color: #FFD700;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    #contact-section {
+      background: rgba(34,34,59,0.92);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #0006;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      margin-top: 32px;
+    }
+    input, textarea, button {
+      padding: 14px 16px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      outline: none;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    input, textarea {
+      background: #23213a;
+      color: #FFD700;
+      border: 1.5px solid #FFD70033;
+      box-shadow: 0 1px 4px #0002;
+    }
+    input:focus, textarea:focus {
+      border: 1.5px solid #FFD700;
+      box-shadow: 0 2px 8px #FFD70033;
+    }
+    button {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa14a 100%);
+      color: #18122B;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #FFD70022;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    button:hover, button:focus {
+      background: linear-gradient(90deg, #bfa14a 0%, #FFD700 100%);
+      color: #22223B;
+      box-shadow: 0 4px 16px #FFD70044;
+    }
+    #contact-status {
+      margin-top: 8px;
+      color: #FFD700;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+    .error { color: #ff4d4f !important; }
+    @media (max-width: 600px) {
+      body { padding: 8px; }
+      #contact-section { padding: 12px 6px; }
+      h1, h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Us</h1>
+  <div id="contact-section">
+    <form id="contact-form" autocomplete="off">
+      <input type="text" id="contact-name" placeholder="Your Name" required />
+      <input type="email" id="contact-email" placeholder="Your Email" required />
+      <textarea id="contact-message" placeholder="Your Message" required rows="4"></textarea>
+      <button type="submit">Send Message</button>
+      <div id="contact-status"></div>
+    </form>
+  </div>
+  <footer style="text-align:center;color:#FFD700;margin-top:48px;">
+    &copy; 2025 VisionFlow — All rights reserved.
+  </footer>
+  <script>
+  document.getElementById('contact-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
+    const status = document.getElementById('contact-status');
+    status.classList.remove('error');
+    if (!name || !email || !message) {
+      status.textContent = '❌ All fields are required.';
+      status.classList.add('error');
+      return;
+    }
+    status.textContent = 'Sending...';
+    try {
+      const res = await fetch('http://127.0.0.1:5000/send-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        status.textContent = "✅ Thank you! We'll get back to you soon by your Email.";
+        status.classList.remove('error');
+        document.getElementById('contact-form').reset();
+      } else {
+        status.textContent = '❌ Failed to send. ' + (data.error || 'Please try again.');
+        status.classList.add('error');
+      }
+    } catch (err) {
+      status.textContent = '❌ Failed to send. Please try again.';
+      status.classList.add('error');
+      console.error(err);
+    }
+  };
+  </script>
+</body>
+</html>

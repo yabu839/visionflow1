@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - VisionFlow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      max-width: 600px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #messageSent {
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contact Us</h1>
+  <p>If you have questions, suggestions, or partnership inquiries, please reach out using the form below:</p>
+
+  <form id="contactForm">
+    <input type="text" placeholder="Your Name" name="name" required />
+    <input type="email" placeholder="Your Email" name="email" required />
+    <textarea placeholder="Your Message" name="message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+    <p id="messageSent"></p>
+  </form>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("messageSent").innerText = "✅ Thank you! We'll get back to you soon.";
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>

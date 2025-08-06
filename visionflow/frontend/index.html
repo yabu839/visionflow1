@@ -1,0 +1,1108 @@
+<!-- index.html (All Features, Admin Fixed) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VisionFlow AI</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Playfair+Display:wght@700&display=swap');
+    body {
+      font-family: 'Montserrat', 'Playfair Display', serif;
+      background: linear-gradient(135deg, #18122B 0%, #22223B 100%);
+      color: #f5f3e7;
+      padding: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      border-radius: 24px;
+      min-height: 100vh;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: #FFD700;
+      text-shadow: 0 2px 16px #0008;
+      margin-bottom: 24px;
+    }
+    #chat-box {
+      background: rgba(24, 18, 43, 0.85);
+      border: 1.5px solid #FFD70044;
+      border-radius: 18px;
+      padding: 18px;
+      height: 320px;
+      overflow-y: scroll;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+      box-shadow: 0 2px 16px #0004;
+    }
+    input, button, select {
+      padding: 14px 16px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      outline: none;
+      transition: box-shadow 0.2s, border 0.2s;
+    }
+    input, select {
+      background: #23213a;
+      color: #FFD700;
+      border: 1.5px solid #FFD70033;
+      box-shadow: 0 1px 4px #0002;
+    }
+    input:focus, select:focus {
+      border: 1.5px solid #FFD700;
+      box-shadow: 0 2px 8px #FFD70033;
+    }
+    button {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa14a 100%);
+      color: #18122B;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #FFD70022;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    button:hover, button:focus {
+      background: linear-gradient(90deg, #bfa14a 0%, #FFD700 100%);
+      color: #22223B;
+      box-shadow: 0 4px 16px #FFD70044;
+    }
+    #auth-section, #main-section {
+      background: rgba(34, 34, 59, 0.92);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #0006;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .hidden { display: none; }
+    #favorites-list {
+      background: rgba(24, 18, 43, 0.7);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-top: 12px;
+      color: #FFD700;
+      font-size: 1.05rem;
+      box-shadow: 0 1px 8px #FFD70022;
+    }
+    #favorites-list li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid #FFD70033;
+      padding-bottom: 8px;
+    }
+    #favorites-list button {
+      width: auto;
+      margin: 4px 0 0 0;
+      padding: 6px 16px;
+      font-size: 0.95rem;
+      border-radius: 8px;
+    }
+    #logout-button {
+      background: linear-gradient(90deg, #23213a 0%, #FFD700 100%);
+      color: #FFD700;
+      border: 1.5px solid #FFD70044;
+      float: right;
+      margin-top: -60px;
+      margin-bottom: 16px;
+      width: auto;
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px #FFD70022;
+    }
+    #logout-button:hover, #logout-button:focus {
+      background: linear-gradient(90deg, #FFD700 0%, #23213a 100%);
+      color: #23213a;
+      border: 1.5px solid #FFD700;
+    }
+    #toggle-theme {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa14a 100%);
+      color: #18122B;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      box-shadow: 0 2px 8px #FFD70022;
+      margin-bottom: 18px;
+      margin-top: 8px;
+      padding: 10px 24px;
+      width: auto;
+    }
+    #toggle-theme:hover, #toggle-theme:focus {
+      background: linear-gradient(90deg, #bfa14a 0%, #FFD700 100%);
+      color: #23213a;
+      box-shadow: 0 4px 16px #FFD70044;
+    }
+    #prompt-suggestion {
+      color: #FFD700;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    form#chat-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    form#chat-form input[type="text"] {
+      flex: 1;
+      margin: 0;
+    }
+    form#chat-form button {
+      width: auto;
+      padding: 12px 24px;
+      margin: 0;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    /* VisionFlow answer styling */
+    #chat-box pre {
+      background: rgba(34,34,59,0.92);
+      color: #FFD700;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 1.08rem;
+      font-family: 'Montserrat', 'Consolas', monospace;
+      box-shadow: 0 1px 8px #FFD70022;
+    }
+    body.light-mode #chat-box pre {
+      background: #fffbe6;
+      color: #23213a;
+      border: 1.5px solid #bfa14a;
+      box-shadow: 0 1px 8px #FFD70022;
+    }
+    @media (max-width: 600px) {
+      body { padding: 8px; }
+      #auth-section, #main-section { padding: 12px 6px; }
+      h1 { font-size: 1.5rem; }
+      #chat-box { height: 180px; padding: 8px; }
+      form#chat-form button { padding: 8px 12px; font-size: 0.95rem; }
+    }
+    /* Light mode luxury styles */
+    body.light-mode {
+      background: linear-gradient(135deg, #fffbe6 0%, #f7f7fa 100%);
+      color: #23213a;
+    }
+    body.light-mode #auth-section,
+    body.light-mode #main-section {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 16px #FFD70033;
+      color: #23213a;
+    }
+    body.light-mode #chat-box {
+      background: #fffbe6;
+      border: 1.5px solid #bfa14a;
+      color: #23213a;
+    }
+    body.light-mode input, body.light-mode select {
+      background: #f7f7fa;
+      color: #bfa14a;
+      border: 1.5px solid #bfa14a44;
+    }
+    body.light-mode input:focus, body.light-mode select:focus {
+      border: 1.5px solid #FFD700;
+      box-shadow: 0 2px 8px #FFD70033;
+    }
+    body.light-mode button {
+      background: linear-gradient(90deg, #bfa14a 0%, #FFD700 100%);
+      color: #23213a;
+      box-shadow: 0 2px 8px #FFD70022;
+    }
+    body.light-mode button:hover, body.light-mode button:focus {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa14a 100%);
+      color: #fffbe6;
+      box-shadow: 0 4px 16px #FFD70044;
+    }
+    body.light-mode #favorites-list {
+      background: #fffbe6;
+      color: #bfa14a;
+      box-shadow: 0 1px 8px #FFD70022;
+    }
+    body.light-mode #favorites-list li {
+      border-bottom: 1px solid #bfa14a44;
+    }
+    body.light-mode #logout-button {
+      background: linear-gradient(90deg, #FFD700 0%, #fffbe6 100%);
+      color: #bfa14a;
+      border: 1.5px solid #FFD70044;
+    }
+    body.light-mode #logout-button:hover, body.light-mode #logout-button:focus {
+      background: linear-gradient(90deg, #fffbe6 0%, #FFD700 100%);
+      color: #FFD700;
+      border: 1.5px solid #FFD700;
+    }
+    body.light-mode #toggle-theme {
+      background: linear-gradient(90deg, #fffbe6 0%, #FFD700 100%);
+      color: #bfa14a;
+      box-shadow: 0 2px 8px #FFD70022;
+    }
+    body.light-mode #toggle-theme:hover, body.light-mode #toggle-theme:focus {
+      background: linear-gradient(90deg, #FFD700 0%, #fffbe6 100%);
+      color: #23213a;
+      box-shadow: 0 4px 16px #FFD70044;
+    }
+    body.light-mode #prompt-suggestion {
+      color: #bfa14a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 VisionFlow AI</h1>
+    <div class="subtitle">Your all-in-one AI business, branding, and product toolkit</div>
+    <button id="toggle-theme" style="float: right; margin-bottom: 16px;">🌙 Toggle Dark Mode</button>
+
+  <div id="dashboard" style="display:none;">
+    
+    <div id="business-page" class="page-section" style="display:block;"></div>
+    <div id="branding-page" class="page-section" style="display:none;"></div>
+    <div id="product-page" class="page-section" style="display:none;"></div>
+    <div id="tools-page" class="page-section" style="display:none;"></div>
+    <div id="account-page" class="page-section" style="display:none;"></div>
+  </div>
+
+  <div id="auth-section">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
+    <button id="signup-btn">Sign Up</button>
+    <button id="login-btn">Login</button>
+  </div>
+
+  <button id="logout-button" class="hidden" style="float: right;">Logout</button>
+  <div id="main-section" class="hidden">
+    <label for="tool-select"><strong>Choose Tool:</strong></label>
+    <select id="tool-select">
+      <option value="cofounder">AI Cofounder Chat</option>
+      <option value="idea">Idea Engine</option>
+      <option value="ideatester">Idea Tester</option>
+      <option value="market">Market Research</option>
+      <option value="mvp">MVP Planner</option>
+      <option value="gtm">Go-to-Market Kit</option>
+      <option value="brand">Brand Builder</option>
+      <option value="step">Step-by-Step Guidance</option>
+      <option value="pitch">Pitch Deck Generator</option>
+      <option value="plan">Business Plan Writer</option>
+      <option value="adcopy">Ad Copy Generator</option>
+      <option value="logo">AI logo Generator</option>
+      <option value="resume">Resume Generator</option>
+      <option value="winning">Find Winning Product</option>
+      <option value="legal">AI Legal/Terms Generator</option>
+      <option value="name">AI Product Name Generator</option>
+      <option value="email">AI Email & Outreach Generator</option>
+      <option value="landing">Landing Page Copy Generator</option>
+      <option value="digitalproduct">Digital Product Finder</option>
+      <option value="valueprop">AI Value Proposition Generator</option>
+      <option value="validate">Problem/Solution Validator</option>
+      <option value="growth">Growth Hacking Ideas</option>
+      <option value="funding">Funding & Investor Outreach</option>
+      <option value="community">Community Building Ideas</option>
+      <option value="scale">Scale Planner</option>
+      <option value="social">Social Marketing Strategist</option>
+    </select>
+    <p id="prompt-suggestion"></p>
+    <div id="chat-box"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Ask VisionFlow..." required />
+      <button id="send-btn" type="submit">Send</button>
+    </form>
+    <div style="margin-top: 10px;">
+      <button id="view-favorites-btn">📂 View Favorites</button>
+      <button id="clear-favorites-btn">🗑 Clear Favorites</button>
+      <button id="export-txt-btn">📄 Export to .txt</button>
+      <button id="export-csv-btn">📊 Export to CSV</button>
+      <button id="export-pdf-btn">🖨 Export to PDF</button>
+    </div>
+    <ul id="favorites-list"></ul>
+  </div>
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+function showPage(page) {
+  document.querySelectorAll('.page-section').forEach(p => p.style.display = 'none');
+  document.getElementById(page + '-page').style.display = 'block';
+}
+function showDashboard() {
+  document.getElementById('auth-section').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  showPage('business');
+}
+function showAuth() {
+  document.getElementById('auth-section').style.display = '';
+  document.getElementById('dashboard').style.display = 'none';
+}
+showPage('business'); // Show business page by default
+// ... (rest of your JS logic remains unchanged) ...
+let loggedInUser = null;
+let favorites = [];
+
+function restoreSession() {
+  const savedUser = localStorage.getItem("visionflowUser");
+  if (savedUser) {
+    loggedInUser = JSON.parse(savedUser);
+    document.getElementById("auth-section").classList.add("hidden");
+    document.getElementById("main-section").classList.remove("hidden");
+    document.getElementById("logout-button").classList.remove("hidden");
+  } else {
+    loggedInUser = null;
+    document.getElementById("main-section").classList.add("hidden");
+    document.getElementById("auth-section").classList.remove("hidden");
+    document.getElementById("logout-button").classList.add("hidden");
+  }
+}
+window.addEventListener("DOMContentLoaded", () => {
+  restoreSession();
+  // Default to dark mode on load
+  document.body.classList.add("dark-mode");
+  updateThemeButton();
+  attachEventHandlers();
+
+  // --- IMPROVEMENTS: Accessibility, Feedback, Robustness ---
+  // Accessibility: Focus first input on auth
+  const emailInput = document.getElementById('email');
+  if (emailInput) {
+    emailInput.setAttribute('aria-label', 'Email');
+    emailInput.setAttribute('tabindex', '1');
+    emailInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('password').focus();
+    });
+  }
+  const passwordInput = document.getElementById('password');
+  if (passwordInput) {
+    passwordInput.setAttribute('aria-label', 'Password');
+    passwordInput.setAttribute('tabindex', '2');
+  }
+  // Feedback: Show loading state on login/signup
+  const signupBtn = document.getElementById('signup-btn');
+  const loginBtn = document.getElementById('login-btn');
+  if (signupBtn) {
+    signupBtn.addEventListener('click', () => {
+      signupBtn.textContent = 'Signing Up...';
+      setTimeout(() => { signupBtn.textContent = 'Sign Up'; }, 2000);
+    });
+  }
+  if (loginBtn) {
+    loginBtn.addEventListener('click', () => {
+      loginBtn.textContent = 'Logging In...';
+      setTimeout(() => { loginBtn.textContent = 'Login'; }, 2000);
+    });
+  }
+  // Robust: Prevent double submit
+  const chatForm = document.getElementById('chat-form');
+  if (chatForm) {
+    chatForm.addEventListener('submit', function(e) {
+      const sendBtn = document.getElementById('send-btn');
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        setTimeout(() => { sendBtn.disabled = false; }, 2000);
+      }
+    });
+  }
+  // Accessibility: ARIA for dark mode toggle
+  const toggleBtn = document.getElementById('toggle-theme');
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-label', 'Toggle dark/light mode');
+    toggleBtn.setAttribute('tabindex', '3');
+  }
+});
+
+function attachEventHandlers() {
+  document.getElementById("signup-btn").onclick = register;
+  document.getElementById("login-btn").onclick = login;
+  document.getElementById("logout-button").onclick = logout;
+  document.getElementById("chat-form").onsubmit = handleChatSubmit;
+  document.getElementById("view-favorites-btn").onclick = viewFavorites;
+  document.getElementById("clear-favorites-btn").onclick = clearFavorites;
+  document.getElementById("export-txt-btn").onclick = exportToTXT;
+  document.getElementById("export-csv-btn").onclick = exportToCSV;
+  document.getElementById("export-pdf-btn").onclick = exportToPDF;
+  document.getElementById("load-history-btn").onclick = loadChatHistory;
+  document.getElementById("clear-chat-btn").onclick = clearChatHistory;
+  document.getElementById("toggle-theme").onclick = () => {
+    if (document.body.classList.contains("light-mode")) {
+      document.body.classList.remove("light-mode");
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+      document.body.classList.add("light-mode");
+    }
+    updateThemeButton();
+  };
+  document.getElementById("tool-select").onchange = updateToolUI;
+}
+
+function updateThemeButton() {
+  const btn = document.getElementById("toggle-theme");
+  const isLight = document.body.classList.contains("light-mode");
+  btn.textContent = isLight ? "🌙 Dark Mode" : "☀️ Light Mode";
+}
+
+const toolPrompts = {
+  cofounder: "Ask anything about launching your startup idea.",
+  scale: "Create a 6-month scaling roadmap for a fashion e-commerce startup.",
+  idea: "Give me 3 business ideas for online tutoring.",
+  ideatester: "Test my idea: An app that delivers groceries by drone in rural areas.",
+  market: "Do market research for fitness tech startup.",
+  mvp: "Create an MVP launch plan for a note-taking app.",
+  gtm: "Write a go-to-market plan for my productivity tool.",
+  brand: "Suggest branding for an AI fashion startup.",
+  step: "Step-by-step launch for a dropshipping brand.",
+  pitch: "Make a 10-slide pitch deck for a crypto wallet.",
+  plan: "Write a full business plan for a pet supply store.",
+  adcopy: "Create ad copy for my AI content generator.",
+  logo: "Generate the best, clean, downloadable logo for a dropshipping brand called Fixora.",
+  resume: "Write a resume for a software engineer with 2 years experience.",
+  winning: "Find 5 winning products for a TikTok-friendly gadget store.",
+  legal: "Generate a Privacy Policy and Terms for my mobile fitness app.",
+  name: "Suggest 5 product names for a smart wearable ring.",
+  email: "Write a cold outreach email to potential investors for my travel startup.",
+  landing: "Generate a landing page copy for a smart home automation platform.",
+  digitalproduct: "Find 5 digital product ideas for students and educators.",
+  valueprop: "Generate a value proposition for my AI hiring platform.",
+  validate: "Validate the problem and solution for my app that matches local tutors with students.",
+  growth: "Suggest 3 growth hacking strategies for my e-commerce store.",
+  funding: "Write an email to angel investors for my fintech startup.",
+  community: "Give me ideas to build a community around my online course platform.",
+  scale: "Create a 6-month scaling roadmap for a fashion e-commerce startup.",
+  social: "Create a 30-day Instagram strategy for a fitness brand.",
+};
+const suggestionBox = document.getElementById("prompt-suggestion");
+const toolSelect = document.getElementById("tool-select");
+function updateToolUI() {
+  const selected = toolSelect.value;
+  suggestionBox.textContent = `💡 Example: ${toolPrompts[selected] || ""}`;
+}
+updateToolUI();
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function isValidPassword(password) {
+  return password.length >= 8;
+}
+
+function register() {
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  // Show dashboard after successful signup
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+  const signUpBtn = document.getElementById("signup-btn");
+  const loginBtn = document.getElementById("login-btn");
+  if (!isValidEmail(email)) {
+    alert("❌ Invalid email format.");
+    emailInput.focus();
+    return;
+  }
+  if (!isValidPassword(password)) {
+    alert("❌ Password must be at least 8 characters.");
+    passwordInput.focus();
+    return;
+  }
+  signUpBtn.disabled = true;
+  loginBtn.disabled = true;
+  signUpBtn.textContent = "Signing Up...";
+  fetch("http://127.0.0.1:5000/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.user && !data.error) {
+        localStorage.setItem("visionflowUser", JSON.stringify(data.user));
+        loggedInUser = data.user;
+        restoreSession();
+        emailInput.value = "";
+        passwordInput.value = "";
+        setTimeout(() => document.getElementById("user-input").focus(), 300);
+      } else {
+        alert(data.error || "Registration failed.");
+        emailInput.focus();
+        return;
+      }
+      showDashboard();
+    })
+    .catch(err => {
+      alert("❌ Network error: " + err.message);
+      emailInput.focus();
+    })
+    .finally(() => {
+      signUpBtn.disabled = false;
+      loginBtn.disabled = false;
+      signUpBtn.textContent = "Sign Up";
+    });
+}
+
+function login() {
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+  const signUpBtn = document.getElementById("signup-btn");
+  const loginBtn = document.getElementById("login-btn");
+  if (!isValidEmail(email)) {
+    alert("❌ Invalid email format.");
+    emailInput.focus();
+    return;
+  }
+  if (!isValidPassword(password)) {
+    alert("❌ Password must be at least 8 characters.");
+    passwordInput.focus();
+    return;
+  }
+  signUpBtn.disabled = true;
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Logging In...";
+  fetch("http://127.0.0.1:5000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.user) {
+        localStorage.setItem("visionflowUser", JSON.stringify(data.user));
+        loggedInUser = data.user;
+        restoreSession();
+        document.getElementById("chat-box").innerHTML = ""; // Clear chat on login
+        setTimeout(() => loadChatHistory(), 100); // Load only this user's chat after UI update
+        emailInput.value = "";
+        passwordInput.value = "";
+        setTimeout(() => document.getElementById("user-input").focus(), 300);
+        showDashboard(); // Show dashboard after login
+      } else {
+        alert(data.error || "Login failed.");
+        passwordInput.focus();
+        return;
+      }
+      showDashboard();
+    })
+    .catch(err => {
+      alert("❌ Network error: " + err.message);
+      emailInput.focus();
+    })
+    .finally(() => {
+      signUpBtn.disabled = false;
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Login";
+    });
+}
+
+function logout() {
+  localStorage.removeItem("visionflowUser");
+  loggedInUser = null;
+  restoreSession();
+  document.getElementById("chat-box").innerHTML = ""; // Clear chat on logout
+  showAuth(); // Hide dashboard, show auth section
+  alert("👋 Logged out.");
+}
+
+async function handleChatSubmit(e) {
+  e.preventDefault();
+  const savedUser = localStorage.getItem("visionflowUser");
+  loggedInUser = savedUser ? JSON.parse(savedUser) : null;
+  if (!loggedInUser || !loggedInUser.email) {
+    alert("❌ Please login or sign up first.");
+    restoreSession();
+    return;
+  }
+  const message = document.getElementById("user-input").value.trim();
+  const tool = document.getElementById("tool-select").value;
+  if (!message) return;
+  const fullPrompt = generatePrompt(tool, message);
+  document.getElementById("chat-box").innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+  document.getElementById("user-input").value = "";
+  try {
+    const res = await fetch("http://127.0.0.1:5000/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: fullPrompt, tool, email: loggedInUser.email })
+    });
+    const data = await res.json();
+    let responseHtml = "";
+    if (tool === "logo" && data.image) {
+      responseHtml = `
+        <p><strong>VisionFlow:</strong></p>
+        <img id="generated-logo" src="${data.image}" alt="Generated Logo" style="max-width:100%; border-radius:8px;" />
+        <br>
+        <br>
+        <button onclick="saveFavorite('${message.replace(/'/g, "\\'")}', '${data.image}')">💾 Save to Favorites</button>
+      `;
+    } else if (data.reply) {
+      responseHtml = `
+        <p><strong>VisionFlow:</strong></p>
+        <pre style="white-space: pre-wrap; background:#f9f9f9; padding:10px; border-radius:8px;">${data.reply}</pre>
+        <button onclick="saveFavorite('${message.replace(/'/g, "\\'")}', \`${data.reply.replace(/`/g, "\\`")}\`)">💾 Save to Favorites</button>
+      `;
+    } else {
+      responseHtml = `<p><strong>VisionFlow:</strong> Sorry, something went wrong.</p>`;
+    }
+    document.getElementById("chat-box").innerHTML += responseHtml;
+  } catch (err) {
+    alert("Error talking to AI.");
+  }
+}
+
+// --- Favorites, Export, and History ---
+function saveFavorite(question, answer) {
+  console.log('saveFavorite called with:', question, answer);
+  if (!loggedInUser || !loggedInUser.email) {
+    alert("Please login to save favorites.");
+    return;
+  }
+  fetch("http://127.0.0.1:5000/save-favorite", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question, answer, email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
+        alert("✅ " + data.message);
+      } else {
+        alert("❌ " + data.error);
+      }
+    })
+    .catch(err => alert("❌ Network error: " + err.message));
+}
+window.saveFavorite = saveFavorite;
+
+function viewFavorites() {
+  fetch("http://127.0.0.1:5000/favorites", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      favorites = data.favorites || [];
+      const list = document.getElementById("favorites-list");
+      list.innerHTML = "";
+      favorites.forEach(f => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>Q:</strong> ${f.question}<br><strong>A:</strong> ${f.answer}<br><button onclick="deleteFavorite('${f.question.replace(/'/g, "\\'")}')">❌ Delete</button><hr>`;
+        list.appendChild(li);
+      });
+    });
+}
+
+function deleteFavorite(question) {
+  fetch("http://127.0.0.1:5000/delete-favorite", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question, email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || data.error);
+      viewFavorites();
+    });
+}
+
+function clearFavorites() {
+  fetch("http://127.0.0.1:5000/clear-favorites", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || data.error);
+      document.getElementById("favorites-list").innerHTML = "";
+    });
+}
+
+function exportToTXT() {
+  if (favorites.length === 0) return alert("No favorites to export.");
+  const content = favorites.map(f => `Q: ${f.question}\nA: ${f.answer}\n`).join("\n");
+  downloadFile("favorites.txt", content);
+}
+
+function exportToCSV() {
+  if (favorites.length === 0) return alert("No favorites to export.");
+  const csv = "Question,Answer\n" + favorites.map(f => `"${f.question.replace(/"/g, '""')}","${f.answer.replace(/"/g, '""')}`
+  ).join("\n");
+  downloadFile("favorites.csv", csv);
+}
+
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 10;
+  favorites.forEach(fav => {
+    const text = `Q: ${fav.question}\nA: ${fav.answer}`;
+    const lines = doc.splitTextToSize(text, 180);
+    doc.text(lines, 10, y);
+    y += lines.length * 10 + 10;
+    if (y > 280) { doc.addPage(); y = 10; }
+  });
+  doc.save("favorites.pdf");
+}
+
+function downloadFile(filename, content) {
+  const blob = new Blob([content], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function loadChatHistory() {
+  if (!loggedInUser || !loggedInUser.email) {
+    document.getElementById("chat-box").innerHTML = "";
+    return;
+  }
+  fetch("http://127.0.0.1:5000/chat-history", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      const history = data.history || [];
+      let output = "\n📜 Chat History\n";
+      if (history.length === 0) output += "No history yet.";
+      else {
+        history.forEach(item => {
+          output += `\n[${item.tool}]\nYou: ${item.user_input}\nVisionFlow: ${item.ai_reply}\n---\n`;
+        });
+      }
+      document.getElementById("chat-box").innerText = output;
+    });
+}
+
+function clearChatHistory() {
+  if (!loggedInUser || !loggedInUser.email) {
+    alert("Please login to clear chat history.");
+    return;
+  }
+  if (!confirm("Are you sure you want to clear your chat history? This cannot be undone.")) return;
+  fetch("http://127.0.0.1:5000/clear-chat-history", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: loggedInUser.email })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message) {
+        document.getElementById("chat-box").innerHTML = "";
+        alert("✅ Chat history cleared.");
+      } else {
+        alert("❌ " + (data.error || "Failed to clear chat history."));
+      }
+    })
+    .catch(err => alert("❌ Network error: " + err.message));
+}
+
+function downloadLogo(format) {
+  const img = document.getElementById("generated-logo");
+  if (!img || !img.src) {
+    alert("❌ No logo found.");
+    return;
+  }
+  fetch(img.src)
+    .then(res => res.blob())
+    .then(blob => {
+      if (format === "png") {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "logo.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else {
+        const url = URL.createObjectURL(blob);
+        const image = new window.Image();
+        image.onload = function() {
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.95);
+          const link = document.createElement("a");
+          link.href = dataUrl;
+          link.download = "logo.jpg";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        };
+        image.src = url;
+      }
+    })
+    .catch(() => alert("❌ Failed to download logo."));
+}
+
+function generatePrompt(tool, input) {
+  switch (tool) {
+    case "cofounder":
+      return `You are my AI cofounder. Help me brainstorm ideas, strategies, and solutions for my startup. My current challenge is: ${input}`;
+    case "idea":
+      return `You're a startup idea machine. Give 3 creative, profitable startup ideas for: ${input}`;
+    case "market":
+      return `You're a market research expert. Provide competitor analysis, audience, and trends for: ${input}`;
+    case "mvp":
+      return `Act as a product manager. Create an MVP launch plan for: ${input}`;
+    case "gtm":
+      return `Act as a growth hacker. Create a launch strategy and ad copy for: ${input}`;
+    case "brand":
+      return `Act as a brand strategist. For "${input}", provide name, slogan, colors, fonts, tone.`;
+    case "step":
+      return `You are a startup mentor. Give me a step-by-step launch guide for: ${input}. Make it scalable for growth, include automation/delegation tips, and break it into phases: validation, MVP, growth, and scaling. Each step should be actionable and specific.`;
+    case "pitch":
+      return `Startup strategist. Generate a 10-slide pitch deck for: ${input}`;
+    case "plan":
+      return `You're a business analyst. Write a full business plan for: ${input}, including:\n1. Executive Summary\n2. Product/Service Description\n3. Target Market\n4. Market Analysis\n5. Competitive Advantage\n6. Operations Plan\n7. SWOT Analysis\n8. Financial Forecast\n9. Marketing Strategy\n10. Conclusion\n\nThen, provide a detailed 30-day action plan for launching and growing this business, with specific tasks and milestones for each day.`;
+    case "adcopy":
+      return `You're a conversion-focused ad copywriter. Write 3 winning ad variants for: "${input}". Each ad should include:\n- A catchy Headline\n- Primary Text\n- A strong Call to Action`;
+    case "logo":
+      return `Generate a clean, modern logo for the brand: "${input}". The logo should be abstract and reflect the brand visually without including any text or letters. Focus on symbolism and brand personality.`;
+    case "resume":
+      return `Professional resume writer. Write a full ATS-optimized resume for: ${input}`;
+    case "winning":
+      return `You are a product research expert. Find 5 winning or trending products that are real shortcuts, solve a big problem, and have a 'wow' factor for: ${input}. For each, explain why it's a shortcut, what problem it solves, and what makes it a wow product (e.g., viral, unique, or untapped market).`;
+    case "legal":
+      return `You're a legal document generator. Write full legal documents including Terms of Service, Privacy Policy, and Cookie Notice for: ${input}. The company should be compliant with global privacy laws (e.g., GDPR, CCPA). Keep the output clear and legally sound.`;
+    case "name":
+      return `You are a creative naming assistant. Suggest 10 unique, brandable product names for: ${input}. Make sure the names are short, catchy, and sound like startup brands.`;
+    case "email":
+      return `You are an expert cold email copywriter. Write a personalized, persuasive email for: ${input}`;
+    case "landing":
+      return `You are a conversion copywriting expert. Write a full landing page copy (headline, subheadline, bullet points, call-to-action) for: ${input}`;
+    case "digitalproduct":
+      return `You're a digital product strategist. Suggest 5 profitable digital products for this niche or idea: ${input}. For each product, include what it is, target audience, how to sell it, and why it would work.`;
+    case "valueprop":
+      return `You're a SaaS marketing expert. Generate a powerful, one-sentence value proposition for: ${input}. Use clear, outcome-driven language.`;
+    case "validate":
+      return `You're a startup advisor. Validate this startup idea by checking if the problem is strong, and if the solution matches well. Give feedback and improvement tips. Idea: ${input}`;
+    case "growth":
+      return `You're a growth hacker. Suggest 3 creative, low-cost growth strategies for: ${input}. Focus on viral marketing, community building, and user acquisition.`;
+    case "funding":
+      return `You're an investor relations expert. Write a compelling email to angel investors for: ${input}. Highlight the problem, solution, market opportunity, and why they should invest.`;
+    case "community":
+      return `You're a community builder. Suggest 5 creative ways to build an engaged community around: ${input}. Focus on online platforms, content strategies, and engagement tactics.`;
+    case "scale":
+      return `You're a startup growth advisor. Create a scaling roadmap for: ${input}. Include: - Key growth milestones - Hiring suggestions - Platform expansion - Budget considerations - Revenue targets`;
+    case "social":
+      return `You're a social media marketing expert. Create a comprehensive 30-day social media marketing strategy for: ${input}. For each day, specify the platform, post type, content idea, and engagement tactic. Include:
+      - Platform-specific tips (Instagram, TikTok, LinkedIn)
+      - Post types (reels, carousels, tweets)
+      - Hashtag recommendations
+      - Posting frequency and engagement hacks`;
+    default:
+      return input;
+  }
+}
+// Ensure saveFavorite is global for dynamic buttons
+window.saveFavorite = saveFavorite;
+  </script>
+<footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">© 2025 <span style="color:#FFD700;">VisionFlow</span> — All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="footer-sep">|</span>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <span class="footer-sep">|</span>
+        <a href="cookie-policy.html">Cookie Policy</a>
+        <span class="footer-sep">|</span>
+        <a href="plan.html">Pricing</a>
+        <span class="footer-sep">|</span>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-tagline">Built by entrepreneurs, for entrepreneurs 🚀</div>
+    </div>
+  </footer>
+  <style>
+    .site-footer {
+      background: linear-gradient(135deg, #18122B 0%, #22223B 100%);
+      border-top: 1.5px solid #23213a;
+      padding: 38px 0 28px 0;
+      text-align: center;
+      color: #f5f3e7;
+      font-size: 1.08rem;
+      margin-top: 48px;
+    }
+    .footer-inner {
+      max-width: 820px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-brand {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 1.13rem;
+      color: #FFD700;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.01rem;
+    }
+    .footer-links a {
+      color: #FFD700;
+      text-decoration: none;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.18s, color 0.18s;
+    }
+    .footer-links a:hover, .footer-links a:focus {
+      background: #FFD70033;
+      color: #fffbe7;
+    }
+    .footer-sep {
+      color: #bfa14a;
+      font-size: 1.1em;
+      margin: 0 2px;
+      user-select: none;
+    }
+    .footer-tagline {
+      font-size: 0.98rem;
+      color: #bfa14a;
+      margin-top: 6px;
+      letter-spacing: 0.2px;
+    }
+    body.light-mode .site-footer {
+      background: linear-gradient(135deg, #fffbe6 0%, #f7f7fa 100%);
+      color: #23213a;
+      border-top: 1.5px solid #bfa14a;
+    }
+    body.light-mode .footer-brand {
+      color: #bfa14a;
+    }
+    body.light-mode .footer-links a {
+      color: #bfa14a;
+    }
+    body.light-mode .footer-links a:hover, body.light-mode .footer-links a:focus {
+      background: #FFD70033;
+      color: #FFD700;
+    }
+    body.light-mode .footer-tagline {
+      color: #888;
+    }
+    @media (max-width: 600px) {
+      .footer-inner { padding: 0 8px; }
+      .footer-links { flex-direction: column; gap: 2px; }
+      .footer-sep { display: none; }
+    }
+  </style>
+<script>
+document.getElementById('contact-form').onsubmit = async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('contact-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  const message = document.getElementById('contact-message').value.trim();
+  const status = document.getElementById('contact-status');
+  status.classList.remove('error');
+  if (!name || !email || !message) {
+    status.textContent = '❌ All fields are required.';
+    status.classList.add('error');
+    return;
+  }
+  status.textContent = 'Sending...';
+  try {
+    const res = await fetch('http://127.0.0.1:5000/send-message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      status.textContent = '✅ Message sent successfully!';
+      status.classList.remove('error');
+      document.getElementById('contact-form').reset();
+    } else {
+      status.textContent = '❌ Failed to send. ' + (data.error || 'Please try again.');
+      status.classList.add('error');
+    }
+  } catch (err) {
+    status.textContent = '❌ Failed to send. Please try again.';
+    status.classList.add('error');
+    console.error(err);
+  }
+};
+</script>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toggleBtn = document.getElementById('toggle-theme');
+  if (toggleBtn) {
+    toggleBtn.onclick = function() {
+      if (document.body.classList.contains('light-mode')) {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+      }
+      toggleBtn.textContent = document.body.classList.contains('light-mode') ? '🌙 Dark Mode' : '☀️ Light Mode';
+    };
+    // Set initial button text
+    toggleBtn.textContent = document.body.classList.contains('light-mode') ? '🌙 Dark Mode' : '☀️ Light Mode';
+  }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toolSelect = document.getElementById('tool-select');
+  var suggestionBox = document.getElementById('prompt-suggestion');
+  var toolPrompts = {
+    cofounder: "Ask anything about launching your startup idea.",
+    scale: "Create a 6-month scaling roadmap for a fashion e-commerce startup.",
+    idea: "Give me 3 business ideas for online tutoring.",
+    market: "Do market research for fitness tech startup.",
+    mvp: "Create an MVP launch plan for a note-taking app.",
+    gtm: "Write a go-to-market plan for my productivity tool.",
+    brand: "Suggest branding for an AI fashion startup.",
+    step: "Step-by-step launch for a dropshipping brand.",
+    pitch: "Make a 10-slide pitch deck for a crypto wallet.",
+    plan: "Write a full business plan for a pet supply store.",
+    adcopy: "Create ad copy for my AI content generator.",
+    logo: "Generate the best, clean, downloadable logo for a dropshipping brand called Fixora.",
+    resume: "Write a resume for a software engineer with 2 years experience.",
+    winning: "Find 5 winning products for a TikTok-friendly gadget store.",
+    legal: "Generate a Privacy Policy and Terms for my mobile fitness app.",
+    name: "Suggest 5 product names for a smart wearable ring.",
+    email: "Write a cold outreach email to potential investors for my travel startup.",
+    landing: "Generate a landing page copy for a smart home automation platform.",
+    digitalproduct: "Find 5 digital product ideas for students and educators.",
+    valueprop: "Generate a value proposition for my AI hiring platform.",
+    validate: "Validate the problem and solution for my app that matches local tutors with students.",
+    growth: "Suggest 3 growth hacking strategies for my e-commerce store.",
+    funding: "Write an email to angel investors for my fintech startup.",
+    community: "Give me ideas to build a community around my online course platform.",
+    scale: "Create a 6-month scaling roadmap for a fashion e-commerce startup.",
+    social: "Create a 30-day Instagram strategy for a fitness brand."
+  };
+  function updateToolUI() {
+    var selected = toolSelect.value;
+    suggestionBox.textContent = '💡 Example: ' + (toolPrompts[selected] || '');
+  }
+  if (toolSelect) {
+    toolSelect.addEventListener('change', updateToolUI);
+    updateToolUI();
+  }
+});
+</script>
+</html>

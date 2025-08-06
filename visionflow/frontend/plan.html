@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VisionFlow AI Pricing Plans</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Playfair+Display:wght@700&display=swap');
+    body {
+      font-family: 'Montserrat', 'Playfair Display', serif;
+      background: linear-gradient(135deg, #18122B 0%, #22223B 100%);
+      color: #f5f3e7;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 48px 24px;
+    }
+    .plans-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #FFD700;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-shadow: 0 2px 16px #0008;
+    }
+    .plans-desc {
+      text-align: center;
+      color: #FFD700b0;
+      font-size: 1.18rem;
+      margin-bottom: 36px;
+    }
+    .plans-section {
+      background: rgba(34,34,59,0.92);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #FFD70022;
+      padding: 36px 28px;
+      margin-bottom: 36px;
+    }
+    .plans-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .plan {
+      flex: 1 1 220px;
+      min-width: 220px;
+      max-width: 300px;
+      background: rgba(24,18,43,0.92);
+      border-radius: 16px;
+      padding: 28px 18px;
+      text-align: center;
+      border: 2px solid #FFD70033;
+      box-shadow: 0 2px 12px #FFD70022;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .plan.popular {
+      background: linear-gradient(135deg,#FFD70022 0%,#bfa14a33 100%);
+      border: 2.5px solid #FFD70088;
+      box-shadow: 0 4px 24px #FFD70044;
+    }
+    .plan .popular-badge {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #FFD700;
+      color: #18122B;
+      font-weight: 700;
+      padding: 4px 18px;
+      border-radius: 8px;
+      font-size: 1.01rem;
+      box-shadow: 0 2px 8px #FFD70044;
+    }
+    .plan-title {
+      font-size: 1.35rem;
+      color: #FFD700;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .plan-price {
+      font-size: 2.1rem;
+      color: #FFD700;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .plan-desc {
+      color: #FFD700b0;
+      margin-bottom: 18px;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+      color: #FFD700;
+      text-align: left;
+      font-size: 1.08rem;
+    }
+    .plan-action {
+      margin-top: 18px;
+    }
+    .plan-action .btn {
+      background: #FFD700;
+      color: #18122B;
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.08rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #FFD70044;
+      transition: background 0.2s, color 0.2s;
+    }
+    .plan-action .btn:hover, .plan-action .btn:focus {
+      background: #bfa14a;
+      color: #FFD700;
+    }
+    .footer {
+      text-align: center;
+      color: #FFD700;
+      margin-top: 48px;
+      font-size: 1.08rem;
+      padding-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .plans-list { flex-direction: column; gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="plans-title">VisionFlow Pricing Plans</div>
+    <div class="plans-desc">Choose the plan that fits your ambition. Upgrade anytime as you grow.</div>
+    <div class="plans-section">
+      <div class="plans-list">
+        <div class="plan">
+          <div class="plan-title">Starter</div>
+          <div class="plan-price">$49.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div class="plan-desc">For new founders &amp; idea testers</div>
+          <ul class="plan-features">
+            <li>🔹 AI Cofounder Chat</li>
+            <li>🔹 Idea Engine</li>
+            <li>🔹 Market Research</li>
+            <li>🔹 MVP Planner</li>
+            <li>🔹 Go-to-Market Kit</li>
+            <li>🔹 Brand Builder</li>
+            <li>🔹 Step-by-Step Guidance</li>
+            <li>🔹 Copy All Code</li>
+            <li>🔹 Favorites (10 max)</li>
+            <li>🔸 Message limit (low)</li>
+            <li>🔸 Export tools ❌</li>
+            <li>🔸 Logo generator ❌</li>
+          </ul>
+          <div class="plan-action"><button class="btn">Get Started</button></div>
+        </div>
+        <div class="plan popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-title">Pro</div>
+          <div class="plan-price">$99.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div class="plan-desc">For serious founders &amp; growing startups</div>
+          <ul class="plan-features">
+            <li>✅ Everything in Starter, plus:</li>
+            <li>🔹 Logo Generator (limited)</li>
+            <li>🔹 Export to TXT/CSV/PDF</li>
+            <li>🔹 Favorites (50 max)</li>
+            <li>🔹 Medium message limit</li>
+          </ul>
+          <div class="plan-action"><button class="btn">Upgrade</button></div>
+        </div>
+        <div class="plan">
+          <div class="plan-title">Elite</div>
+          <div class="plan-price">$199.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div class="plan-desc">For power users &amp; agencies</div>
+          <ul class="plan-features">
+            <li>✅ Everything in Pro, plus:</li>
+            <li>🔹 Unlimited Logo Generator</li>
+            <li>🔹 Unlimited Favorites</li>
+            <li>🔹 Unlimited Messages</li>
+            <li>🔹 Priority Support</li>
+          </ul>
+          <div class="plan-action"><button class="btn">Upgrade</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      &copy; 2025 VisionFlow — Built for entrepreneurs, by entrepreneurs.
+    </div>
+  </div>
+</body>
+</html>

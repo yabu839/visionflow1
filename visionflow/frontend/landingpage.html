@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VisionFlow AI - Your Luxury Business Toolkit</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Playfair+Display:wght@700&display=swap');
+    body {
+      font-family: 'Montserrat', 'Playfair Display', serif;
+      background: linear-gradient(135deg, #18122B 0%, #22223B 100%);
+      color: #f5f3e7;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 48px 24px;
+    }
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+    .hero-text {
+      flex: 9 16 520px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #FFD700;
+      margin-bottom: 20px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 16px #0008;
+    }
+    .hero-desc {
+      font-size: 1.25rem;
+      color: #f5f3e7;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa14a 100%);
+      color: #18122B;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #FFD70044;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+    .cta-btn:hover, .cta-btn:focus {
+      background: linear-gradient(90deg, #bfa14a 0%, #FFD700 100%);
+      color: #22223B;
+      box-shadow: 0 4px 24px #FFD70066;
+    }
+    .hero-video {
+      flex: 9 16 520px;
+      display: flex;
+      align-items: left;
+      justify-content: left;
+    }
+    .hero-video video {
+      max-width: 1000px;
+      width: 160%;
+      border-radius: 22px;
+      box-shadow: 0 4px 32px #FFD70022, 0 1.5px 8px #0006;
+      border: 3px solid #FFD70044;
+      background: #18122B;
+    }
+    .hero-img {
+      flex: 1 1 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-img img {
+      max-width: 340px;
+      width: 100%;
+      border-radius: 22px;
+      box-shadow: 0 4px 32px #FFD70022, 0 1.5px 8px #0006;
+      border: 3px solid #FFD70044;
+      background: #fffbe6;
+    }
+    .features {
+      background: rgba(34,34,59,0.92);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #FFD70022;
+      padding: 36px 28px;
+      margin-bottom: 36px;
+    }
+    .features-title {
+      color: #FFD700;
+      font-size: 2rem;
+      margin-bottom: 18px;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+    }
+    .features-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .feature {
+      flex: 1 1 260px;
+      background: rgba(24,18,43,0.85);
+      border-radius: 14px;
+      padding: 22px 18px;
+      color: #FFD700;
+      font-size: 1.08rem;
+      box-shadow: 0 1px 8px #FFD70022;
+      border: 1.5px solid #FFD70033;
+      min-width: 220px;
+    }
+    .feature strong {
+      color: #FFD700;
+      font-size: 1.13rem;
+      display: block;
+      margin-bottom: 8px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .luxury-divider {
+      border: none;
+      border-top: 2.5px solid #FFD70044;
+      margin: 48px 0 36px 0;
+      width: 100%;
+    }
+    .testimonial {
+      background: linear-gradient(90deg, #FFD70011 0%, #bfa14a22 100%);
+      border-radius: 14px;
+      padding: 24px 18px;
+      color: #FFD700;
+      font-size: 1.13rem;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px #FFD70022;
+      border: 1.5px solid #FFD70033;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .testimonial strong {
+      color: #fffbe6;
+      font-size: 1.08rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .testimonial .testimonial-author {
+      color: #fffbe6;
+      font-size: 1.05rem;
+      margin-top: 10px;
+      display: block;
+    }
+    .footer {
+      text-align: center;
+      color: #FFD700;
+      margin-top: 48px;
+      font-size: 1.08rem;
+      padding-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; gap: 18px; }
+      .hero-img img { max-width: 90vw; }
+      .features-list { flex-direction: column; gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-title">VisionFlow AI</div>
+        <div class="hero-desc">
+          The luxury all-in-one AI business, branding, and product toolkit.<br>
+          <span style="color:#bfa14a;">Build, launch, and scale your next big idea with confidence.</span><br>
+          <br>
+          <ul style="color:#FFD700; font-size:1.08rem; margin-left:18px;">
+            <li>AI cofounder, idea tester, and business plan generator</li>
+            <li>Market research, branding, and product strategy</li>
+            <li>Step-by-step launch, pitch deck, and growth tools</li>
+            <li>All in a beautiful, user-friendly, luxury platform</li>
+          </ul>
+        </div>
+        <a href="index.html" class="cta-btn">Get Started Free</a>
+      </div>
+      
+      <div class="hero-video">
+        <video controls autoplay muted loop>
+          <source src="C:\Users\yabu\Videos\0727.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="features-title">Why VisionFlow?</div>
+      <ul class="features-list">
+        <li class="feature">
+          <strong>Luxury Experience</strong>
+          Enjoy a premium, intuitive interface designed for entrepreneurs who value both power and elegance.
+        </li>
+        <li class="feature">
+          <strong>AI-Powered Everything</strong>
+          From idea validation to branding, VisionFlow's AI gives you actionable, step-by-step guidance for every stage.
+        </li>
+        <li class="feature">
+          <strong>All-in-One Toolkit</strong>
+          No more juggling tools. Get business plans, pitch decks, logos, market research, and more in one place.
+        </li>
+        <li class="feature">
+          <strong>Results-Driven</strong>
+          Every feature is designed to help you launch faster, grow smarter, and stand out in any market.
+        </li>
+      </ul>
+    </div>
+
+    <hr class="luxury-divider" />
+
+    <!-- Pricing Section -->
+    <div class="features" style="margin-bottom:48px;">
+      <div class="features-title">Pricing</div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+        <div style="flex:1 1 220px;min-width:220px;max-width:300px;background:rgba(24,18,43,0.92);border-radius:16px;padding:28px 18px;text-align:center;border:2px solid #FFD70033;box-shadow:0 2px 12px #FFD70022;">
+          <div style="font-size:1.35rem;color:#FFD700;font-weight:700;margin-bottom:8px;">Starter</div>
+          <div style="font-size:2.1rem;color:#FFD700;font-weight:700;margin-bottom:8px;">$49.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div style="color:#FFD700b0;margin-bottom:18px;">For new founders &amp; idea testers</div>
+          <ul style="list-style:none;padding:0;margin:0 0 18px 0;color:#FFD700;text-align:left;">
+            <li>🔹 AI Cofounder Chat</li>
+            <li>🔹 Idea Engine</li>
+            <li>🔹 Market Research</li>
+            <li>🔹 MVP Planner</li>
+            <li>🔹 Go-to-Market Kit</li>
+            <li>🔹 Brand Builder</li>
+            <li>🔹 Step-by-Step Guidance</li>
+            <li>🔹 All basic tools</li>
+            <li>🔹 Favorites (10 max)</li>
+            <li>🔸 Message limit (low)</li>
+            <li>🔸 Export tools ❌</li>
+            <li>🔸 Logo generator ❌</li>
+          </ul>
+          <div style="margin-top:18px;"><span style="background:#FFD70022;color:#FFD700;padding:6px 18px;border-radius:8px;font-weight:600;">Get Started</span></div>
+        </div>
+        <div style="flex:1 1 220px;min-width:220px;max-width:300px;background:linear-gradient(135deg,#FFD70022 0%,#bfa14a33 100%);border-radius:16px;padding:28px 18px;text-align:center;border:2.5px solid #FFD70088;box-shadow:0 4px 24px #FFD70044;position:relative;">
+          <div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#FFD700;color:#18122B;font-weight:700;padding:4px 18px;border-radius:8px;font-size:1.01rem;box-shadow:0 2px 8px #FFD70044;">Most Popular</div>
+          <div style="font-size:1.35rem;color:#FFD700;font-weight:700;margin-bottom:8px;">Pro</div>
+          <div style="font-size:2.1rem;color:#FFD700;font-weight:700;margin-bottom:8px;">$99.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div style="color:#FFD700b0;margin-bottom:18px;">For serious founders &amp; growing startups</div>
+          <ul style="list-style:none;padding:0;margin:0 0 18px 0;color:#FFD700;text-align:left;">
+            <li>✅ Everything in Starter, plus:</li>
+            <li>🔹 Logo Generator (limited)</li>
+            <li>🔹 Export to TXT/CSV/PDF</li>
+            <li>🔹 Favorites (50 max)</li>
+            <li>���� Medium message limit</li>
+          </ul>
+          <div style="margin-top:18px;"><span style="background:#FFD700;color:#18122B;padding:6px 18px;border-radius:8px;font-weight:700;">Upgrade</span></div>
+        </div>
+        <div style="flex:1 1 220px;min-width:220px;max-width:300px;background:rgba(24,18,43,0.92);border-radius:16px;padding:28px 18px;text-align:center;border:2px solid #FFD70033;box-shadow:0 2px 12px #FFD70022;">
+          <div style="font-size:1.35rem;color:#FFD700;font-weight:700;margin-bottom:8px;">Elite</div>
+          <div style="font-size:2.1rem;color:#FFD700;font-weight:700;margin-bottom:8px;">$199.99<span style="font-size:1.1rem;">/mo</span></div>
+          <div style="color:#FFD700b0;margin-bottom:18px;">For power users &amp; agencies</div>
+          <ul style="list-style:none;padding:0;margin:0 0 18px 0;color:#FFD700;text-align:left;">
+            <li>✅ Everything in Pro, plus:</li>
+            <li>🔹 Unlimited Logo Generator</li>
+            <li>🔹 Unlimited Favorites</li>
+            <li>🔹 Unlimited Messages</li>
+            <li>🔹 Priority Support</li>
+          </ul>
+          <div style="margin-top:18px;"><span style="background:#FFD700;color:#18122B;padding:6px 18px;border-radius:8px;font-weight:700;">Upgrade</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="luxury-divider" />
+
+    <!-- Testimonials Section -->
+    <div class="testimonial">
+      <strong>What users say:</strong>
+      <span>"VisionFlow is like having a team of expert advisors, designers, and strategists in my pocket. The AI's advice is practical, detailed, and actually helps me move forward. The luxury design makes it a joy to use every day!"</span>
+      <span class="testimonial-author">— Sarah M., Startup Founder</span>
+    </div>
+    <div class="testimonial">
+      <strong>Incredible for validation:</strong>
+      <span>"I tested 5 business ideas in one night. The AI feedback was honest, actionable, and saved me months of wasted effort. Highly recommend for any entrepreneur!"</span>
+      <span class="testimonial-author">— Alex T., Serial Entrepreneur</span>
+    </div>
+    <div class="testimonial">
+      <strong>Perfect for teams:</strong>
+      <span>"Our agency uses VisionFlow to generate business plans and branding for clients. The Pro plan is a game changer for productivity and quality."</span>
+      <span class="testimonial-author">— Priya S., Agency Owner</span>
+    </div>
+    <div class="testimonial">
+      <strong>Best value for money:</strong>
+      <span>"I used to pay for 4 different tools. Now I get everything in one place, and the results are better. The interface feels truly premium."</span>
+      <span class="testimonial-author">— Michael B., SaaS Founder</span>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 VisionFlow — Built for entrepreneurs, by entrepreneurs.
+    </div>
+  </div>
+</body>
+</html>
